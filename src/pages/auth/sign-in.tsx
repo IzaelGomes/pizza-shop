@@ -1,6 +1,10 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+
 export const SignIn = () => {
   return (
     <>
@@ -17,8 +21,13 @@ export const SignIn = () => {
           </div>
 
           <form className="space-y-4">
-            <div className="space-y-2"></div>
-            <button type="submit">Acessar portal</button>
+            <div className="space-y-2">
+              <Label>Seu e-mail</Label>
+              <Input id="email" type="email" />
+            </div>
+            <Button className="w-full" type="submit">
+              Acessar painel
+            </Button>
           </form>
         </div>
       </div>
