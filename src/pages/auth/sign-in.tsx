@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
+import { useMutation } from 'react-query'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { signIn } from '@/api/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,13 +22,28 @@ export const SignIn = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<SignInForm>()
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: signIn,
+  })
 
   async function handleSign(data: SignInForm) {
-    await new Promise((resolve, reject) => {
-      setTimeout(resolve, 2000)
-    })
+    try {
+      await mutateAsync(data)
 
-    toast.success('Enviamos um link de authenticacao')
+      toast.success('Enviamos um link de autenticação para o seu e-mail', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSign(data),
+        },
+      })
+    } catch (error) {
+      toast.error('error', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSign(data),
+        },
+      })
+    }
   }
 
   return (
