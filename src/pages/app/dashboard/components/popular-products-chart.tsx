@@ -12,29 +12,6 @@ export function PopularProductsChart() {
     queryFn: getPopularProducts,
   })
 
-  const data = [
-    {
-      product: 'Peperoni',
-      amount: 30,
-    },
-    {
-      product: 'Quatro queijos',
-      amount: 20,
-    },
-    {
-      product: 'Portuguesa',
-      amount: 40,
-    },
-    {
-      product: 'Calabresa',
-      amount: 50,
-    },
-    {
-      product: 'Frango',
-      amount: 30,
-    },
-  ]
-
   const COLORS = [
     colors.sky[500],
     colors.amber[500],

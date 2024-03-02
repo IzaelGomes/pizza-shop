@@ -1,3 +1,7 @@
+import { subDays } from 'date-fns'
+import { ComponentProps, useMemo, useState } from 'react'
+import { DateRange } from 'react-day-picker'
+import { useQuery } from 'react-query'
 import {
   CartesianGrid,
   Line,
@@ -8,6 +12,7 @@ import {
 } from 'recharts'
 import colors from 'tailwindcss/colors'
 
+import { getDailyRevenueInPeriod } from '@/api/get-daily-revenue-in-period'
 import {
   Card,
   CardContent,
@@ -15,38 +20,29 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { DatePickerWithRange } from '@/components/ui/date-range-picker'
+import { Label } from '@/components/ui/label'
 
 export function RevenueChart() {
-  const data = [
-    {
-      date: '10/12',
-      revenue: 1200,
-    },
-    {
-      date: '11/12',
-      revenue: 200,
-    },
-    {
-      date: '12/12',
-      revenue: 400,
-    },
-    {
-      date: '13/12',
-      revenue: 1500,
-    },
-    {
-      date: '14/12',
-      revenue: 1300,
-    },
-    {
-      date: '15/12',
-      revenue: 1700,
-    },
-    {
-      date: '16/12',
-      revenue: 700,
-    },
-  ]
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: subDays(new Date(), 7),
+    to: new Date(),
+  })
+
+  const { data: dailyRevenue } = useQuery({
+    queryKey: ['metrics', 'daily-revenue-in-period', dateRange],
+    queryFn: () =>
+      getDailyRevenueInPeriod({ from: dateRange?.from, to: dateRange?.to }),
+  })
+
+  const chartData = useMemo(() => {
+    return dailyRevenue?.map((chartItem) => {
+      return {
+        date: chartItem.date,
+        receipt: chartItem.receipt / 100,
+      }
+    })
+  }, [dailyRevenue])
 
   return (
     <Card className="col-span-6">
@@ -55,11 +51,16 @@ export function RevenueChart() {
           <CardTitle className="text-base font-medium"></CardTitle>
           <CardDescription>Receita diária no período</CardDescription>
         </div>
+
+        <div className="flex items-center gap-3">
+          <Label>Período</Label>
+          <DatePickerWithRange date={dateRange} onDateChange={setDateRange} />
+        </div>
       </CardHeader>
 
       <CardContent>
         <ResponsiveContainer width="100%" height={248}>
-          <LineChart data={data} style={{ fontSize: 12 }}>
+          <LineChart data={chartData} style={{ fontSize: 12 }}>
             <XAxis dataKey="date" tickLine={false} dy={17} />
             <YAxis
               stroke="#888"
@@ -76,7 +77,7 @@ export function RevenueChart() {
             <Line
               type="linear"
               strokeWidth={2}
-              dataKey="revenue"
+              dataKey="receipt"
               stroke={colors.violet[500]}
             />
             <CartesianGrid vertical={false} className="stroke-muted" />
