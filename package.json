@@ -27,6 +27,7 @@
     "D": "^1.0.0",
     "date-fns": "^3.3.1",
     "form": "^0.2.4",
+    "happy-dom": "^13.6.2",
     "localforage": "^1.10.0",
     "lucide-react": "^0.314.0",
     "match-sorter": "^6.3.3",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
+    "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@types/node": "^20.11.6",
     "@types/react": "^18.2.48",
