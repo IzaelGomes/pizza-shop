@@ -29,7 +29,9 @@ export function Pagination({
       </span>
 
       <div className="lg:pag-8 flex items-center gap-6">
-        <div className="text-sm font-medium">Página {pageIndex} de pages</div>
+        <div className="text-sm font-medium">
+          Página {pageIndex + 1} de {pages}
+        </div>
         <div className="flex items-center gap-2">
           <Button
             variant={'outline'}
@@ -56,7 +58,7 @@ export function Pagination({
             disabled={pageIndex >= pages - 1}
           >
             <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Próximo página</span>
+            <span className="sr-only">Próxima página</span>
           </Button>
           <Button
             variant={'outline'}
