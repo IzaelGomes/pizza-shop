@@ -72,7 +72,7 @@ export const SignIn = () => {
 
           <form className="space-y-4" onSubmit={handleSubmit(handleSign)}>
             <div className="space-y-2">
-              <Label>Seu e-mail</Label>
+              <Label htmlFor={'email'}>Seu e-mail</Label>
               <Input id="email" type="email" {...register('email')} />
             </div>
             <Button className="w-full" type="submit" disabled={isSubmitting}>
