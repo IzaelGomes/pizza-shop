@@ -44,12 +44,7 @@ export const SignIn = () => {
         },
       })
     } catch (error) {
-      toast.error('error', {
-        action: {
-          label: 'Reenviar',
-          onClick: () => handleSign(data),
-        },
-      })
+      toast.error('Credenciais inválidas')
     }
   }
 
