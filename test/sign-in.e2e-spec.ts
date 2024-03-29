@@ -31,4 +31,5 @@ test('navigate to new restaurant page', async ({ page }) => {
   const title = page.getByText('Criar conta grátis')
 
   expect(title).toBeVisible()
+  expect(page.url()).toContain('/sign-up')
 })
