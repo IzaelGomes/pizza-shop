@@ -67,21 +67,20 @@ export function OrderTableRow({ orders }: OrderTableRowProps) {
     },
   })
 
+  const { mutateAsync: deliverFn, isLoading: isDeliverLoading } = useMutation({
+    mutationFn: deliverOrder,
+    async onSuccess(_, { orderId }) {
+      updateOrderStatusOnCache(orderId, 'delivered')
+    },
+  })
   const { mutateAsync: dispatchFn, isLoading: isDispatchLoading } = useMutation(
     {
       mutationFn: dispatchOrder,
       async onSuccess(_, { orderId }) {
-        updateOrderStatusOnCache(orderId, 'delivered')
+        updateOrderStatusOnCache(orderId, 'delivering')
       },
     },
   )
-
-  const { mutateAsync: deliverFn, isLoading: isDeliverLoading } = useMutation({
-    mutationFn: deliverOrder,
-    async onSuccess(_, { orderId }) {
-      updateOrderStatusOnCache(orderId, 'delivering')
-    },
-  })
 
   return (
     <TableRow>
