@@ -26,4 +26,5 @@ jobs:
       run: |
         npm install
         npm run test
+        npx playwright install
         npx playwright test
