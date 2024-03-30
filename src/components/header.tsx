@@ -6,7 +6,7 @@ import { NavLink } from './nav-link'
 import { ThemeToggle } from './theme/theme-toggle'
 
 export function Header() {
-  console.log('teste para work flow')
+  console.log('teste para work floddw')
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6 ">
