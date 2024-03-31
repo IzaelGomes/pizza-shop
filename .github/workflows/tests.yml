@@ -42,3 +42,7 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+        
+     - name: Halt workflow on test failure
+        if: failure()
+        run: exit 1

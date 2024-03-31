@@ -10,6 +10,7 @@ import { queryClient } from './lib/react-query'
 import { router } from './routes'
 
 export function App() {
+  console.log('ola')
   return (
     <HelmetProvider>
       <ThemeProvider storageKey="pizzashop-theme" defaultTheme="system">
